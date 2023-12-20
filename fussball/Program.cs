@@ -3,7 +3,12 @@ using Microsoft.Extensions.DependencyInjection;
 using fussball.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<fussballContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("fussballContext") ?? throw new InvalidOperationException("Connection string 'fussballContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("fussballContext"), options =>
+        options.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: System.TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null)
+    ));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
