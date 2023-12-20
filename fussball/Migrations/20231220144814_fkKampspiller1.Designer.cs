@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fussball.Data;
 
@@ -11,9 +12,11 @@ using fussball.Data;
 namespace fussball.Migrations
 {
     [DbContext(typeof(fussballContext))]
-    partial class fussballContextModelSnapshot : ModelSnapshot
+    [Migration("20231220144814_fkKampspiller1")]
+    partial class fkKampspiller1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,18 +95,16 @@ namespace fussball.Migrations
 
             modelBuilder.Entity("fussball.Models.Kampspiller", b =>
                 {
-                    b.HasOne("fussball.Models.Kamp", "Kamp")
-                        .WithOne("KampSpiller")
+                    b.HasOne("fussball.Models.Kamp", null)
+                        .WithOne("Kampspiller")
                         .HasForeignKey("fussball.Models.Kampspiller", "KampId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Kamp");
                 });
 
             modelBuilder.Entity("fussball.Models.Kamp", b =>
                 {
-                    b.Navigation("KampSpiller")
+                    b.Navigation("Kampspiller")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

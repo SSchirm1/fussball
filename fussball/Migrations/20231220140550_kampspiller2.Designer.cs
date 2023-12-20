@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fussball.Data;
 
@@ -11,9 +12,11 @@ using fussball.Data;
 namespace fussball.Migrations
 {
     [DbContext(typeof(fussballContext))]
-    partial class fussballContextModelSnapshot : ModelSnapshot
+    [Migration("20231220140550_kampspiller2")]
+    partial class kampspiller2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,31 +47,6 @@ namespace fussball.Migrations
                     b.ToTable("Kamp");
                 });
 
-            modelBuilder.Entity("fussball.Models.Kampspiller", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("KampId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Lag1")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("spillerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("KampId")
-                        .IsUnique();
-
-                    b.ToTable("Kampspiller");
-                });
-
             modelBuilder.Entity("fussball.Models.Spiller", b =>
                 {
                     b.Property<int>("Id")
@@ -88,23 +66,6 @@ namespace fussball.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Spiller");
-                });
-
-            modelBuilder.Entity("fussball.Models.Kampspiller", b =>
-                {
-                    b.HasOne("fussball.Models.Kamp", "Kamp")
-                        .WithOne("KampSpiller")
-                        .HasForeignKey("fussball.Models.Kampspiller", "KampId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Kamp");
-                });
-
-            modelBuilder.Entity("fussball.Models.Kamp", b =>
-                {
-                    b.Navigation("KampSpiller")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

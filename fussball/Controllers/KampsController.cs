@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using fussball.Data;
 using fussball.Models;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace fussball.Controllers
 {
@@ -56,10 +57,11 @@ namespace fussball.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Dato")] Kamp kamp)
+        public async Task<IActionResult> Create([Bind("Id,Dato,ScoreLag1,ScoreLag2")] Kamp kamp)
         {
             if (ModelState.IsValid)
             {
+
                 _context.Add(kamp);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -88,7 +90,7 @@ namespace fussball.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Dato")] Kamp kamp)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Dato,ScoreLag1, ScoreLag2")] Kamp kamp)
         {
             if (id != kamp.Id)
             {
@@ -159,5 +161,12 @@ namespace fussball.Controllers
         {
           return (_context.Kamp?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        [HttpPost, ActionName("RegistrerKamp")]
+        public async Task<IActionResult> RegistrerKamp()
+        {
+            return View();
+        } 
+
     }
 }
