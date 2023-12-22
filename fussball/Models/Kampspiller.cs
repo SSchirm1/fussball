@@ -14,7 +14,7 @@ namespace fussball.Models
 
         public bool Lag1 { get; set; }
 
-        public virtual Kamp Kamp { get; set; }
+        //public virtual Kamp Kamp { get; set; }
 
     }
 }

@@ -16,7 +16,7 @@ namespace fussball.Models
         public int ScoreLag2 { get; set; }
 
 
-        public virtual Kampspiller KampSpiller { get; set; }
+        //public virtual Kampspiller KampSpiller { get; set; }
 
     }
 }
